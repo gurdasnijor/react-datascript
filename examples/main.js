@@ -8,20 +8,19 @@ const d = datascript;
 
 
 var socialNetworkSchema = {
-  "name": {":db/cardinality": ":db.cardinality/one"},
-  "friend": {
+  "name": {
     ":db/cardinality": ":db.cardinality/one",
+    ":db/unique": ":db.unique/identity"
+  },
+  "friend": {
+    ":db/cardinality": ":db.cardinality/many",
     ":db/valueType": ":db.type/ref"
   }
 };
 
 
 var conn = d.create_conn(socialNetworkSchema);
-var reports = []
 
-d.listen(conn, 'main', report => {
-    reports.push(report)
-})
 
 var datoms = [{
       ":db/id": -1,
@@ -46,12 +45,13 @@ const enhance = createDSContainer(`
   [:find (pull ?e ["name" {"_friend" 1}])
    :in $
    :where [?e "name" "Jane"]]`,
-  d.db(conn)
+  conn
 );
 
-const QueryOutput = enhance((props) =>
+const QueryOutput = enhance(({ result, transact }) =>
   <div>
-    All friends of jane (result of a recursive pull query of the friend graph): {JSON.stringify(props)}
+    All friends of jane (result of a recursive pull query of the friend graph): {JSON.stringify(result)}
+    <button onClick={() => transact([{":db/id": -12, "name": "Jane's new friend", "friend": ["name", "Jane"]}])}> Add friend </button>
   </div>
 )
 
