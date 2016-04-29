@@ -30,7 +30,7 @@ var datoms = [{
     {
       ":db/id": -2,
       "name": "David",
-      "friend": -3
+      "friend": [-3, -1]
     },
     {
       ":db/id": -3,
@@ -41,20 +41,60 @@ var datoms = [{
 d.transact(conn, datoms, 'transacting in some friends')
 
 
-const enhance = createDSContainer(`
-  [:find (pull ?e ["name" {"_friend" 1}])
-   :in $
-   :where [?e "name" "Jane"]]`,
+const enhance = createDSContainer({
+    query: `[:find (pull ?e ["name" {"_friend" 1}])
+                   :in $ ?name
+                   :where [?e "name" ?name]]`,
+    initialParams: 'Jane'
+  },
   conn
 );
 
-const QueryOutput = enhance(({ result, transact }) =>
+// const enhance = compose(
+//   createDSContainer({initialParams: string, query: string}, ?),
+//   withPropsOnChange(
+//     ,
+//     props => ({
+//       ...props,
+//       foo: props.result.aklsdjfkla
+//     })
+//   )
+// )
+
+const QueryOutput = enhance(({ result, transact, setParams }) =>
   <div>
     All friends of jane (result of a recursive pull query of the friend graph): {JSON.stringify(result)}
-    <button onClick={() => transact([{":db/id": -12, "name": "Jane's new friend", "friend": ["name", "Jane"]}])}> Add friend </button>
+    <button onClick={() => (
+      transact([{
+        ":db/id": -12,
+        "name": "Jane's new friend",
+        "friend": ["name", "Jane"]
+      }]))}>
+      Add friend
+    </button>
+    <button onClick={() => setParams('David')}>
+      Change param
+    </button>
   </div>
 )
 
 
+class TestChangeComponent extends React.Component {
+  state = {
+    vals: ['Jane', 'David'],
+    index: 0
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.setState({index: this.state.index === 0 ? 1 : 0})}>Next </button>
+        <QueryOutput params={this.state.vals[this.state.index]} />
+      </div>
+    )
+  }
+}
 
-ReactDOM.render(<QueryOutput/>, document.getElementById('root'));
+
+
+
+ReactDOM.render(<TestChangeComponent />, document.getElementById('root'));
