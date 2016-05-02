@@ -49,5 +49,8 @@
   "peerDependencies": {
     "recompose": "^0.17.0",
     "datascript": "^0.15.0"
+  },
+  "dependencies": {
+    "edn-js": "0.0.3"
   }
 }

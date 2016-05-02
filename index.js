@@ -2,6 +2,8 @@ import React from 'react';
 import createHelper from 'recompose/createHelper';
 import shallowEqual from 'recompose/shallowEqual';
 import datascript from 'datascript';
+import { read,write,edn,List,UUID } from 'edn-js';
+
 const d = datascript;
 
 
@@ -43,12 +45,24 @@ const _withDatascriptQuery = ({ query, pull, rules, initialParams }) =>
         conn: React.PropTypes.object
       };
 
+      parseQueryAttributes = (query) => {
+        const parsedQuery = read(query.trim())
+        const whereKeywordIndex = parsedQuery.indexOf(Symbol.for(':where'));
+        const whereClauses = parsedQuery.slice(whereKeywordIndex + 1);
+
+        //TODO:  Get this to work with rules + not/or/or-join + expression
+        //clauses...  Also figure out different parse rules for pull syntax
+        return whereClauses.map(([_, attr]) => attr)
+          .reduce((attrMap, attr) => Object.assign(attrMap, {[attr]: true}), {})
+      }
+
       constructor(props, context) {
         super(props, context);
         this.conn = props.conn || context.conn;
         this.state = {
           result: [],
-          params: props.params || initialParams
+          params: props.params || initialParams,
+          parsedQueryAttrs: query ? this.parseQueryAttributes(query) : {}
         };
       }
 
@@ -72,7 +86,19 @@ const _withDatascriptQuery = ({ query, pull, rules, initialParams }) =>
       }
 
       execQuery = (report) => {
-        const { result, params } = this.state;
+        const { result, params, parsedQueryAttrs } = this.state;
+
+        if (report) {
+          const someQueryAttrChanged = report.tx_data
+            .map(({a}) => a)
+            .some(a => parsedQueryAttrs[a]);
+
+          //Did this last transaction not contain changes to any fields referenced
+          //by this query?  Skip the re-query (and corresponding component update)
+          if (query && !someQueryAttrChanged) {
+            return;
+          }
+        }
 
         if (query) {
           let queryResult = [];

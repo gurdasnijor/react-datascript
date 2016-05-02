@@ -28,7 +28,7 @@ var config = {
     loaders: [
       {
         test: /\.js?$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules(?!\/(edn-js)))/,
         loaders: ['react-hot', 'babel']
       },
       {
