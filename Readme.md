@@ -1,6 +1,6 @@
-# recompose-datascript
+# react-datascript
 
-Bindings for building components that co-locate declarative queries in the spirit of Relay and om.next
+An API for declarative component-level queries into complex application state (with solid performance over any arbitrary structure: trees, large denormalized lists, etc)  [Read here for details as to how that's made possible](http://tonsky.me/blog/datascript-internals/)
 
 [datascript](https://github.com/tonsky/datascript) serves as the in-memory data store to service these queries, and supports powerful graph query/traversal capabilities (with support for recursive rules), aggregations, and covers almost all of [datomic's datalog query syntax](http://docs.datomic.com/query.html)
 
