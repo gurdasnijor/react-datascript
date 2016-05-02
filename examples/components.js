@@ -1,11 +1,23 @@
 import React from 'react';
 import { withDatascriptQuery } from '../index.js';
 
+
+/**
+ * A higher order component that declares a query for returning names
+ * of all users in the graph
+ */
+const allUserQuery = withDatascriptQuery({
+  query: `
+    [:find ?uname
+     :where [?u "name"]
+            [?u "name" ?uname]]`
+});
+
 /**
  * A higher order component that declares a query using a recursive rule
- * for listing out all user pairs (all edges in the user graph)
+ * for listing out all edges in the user graph
  */
-const enhanceDSRulesQuery = withDatascriptQuery({
+const allUserEdgesQuery = withDatascriptQuery({
   query: `
     [:find ?u1name ?u2name
      :in $ %
@@ -23,12 +35,25 @@ const enhanceDSRulesQuery = withDatascriptQuery({
 /**
  * A higher order component that declares a recursive pull query to walk all followers
  * for a given user (the output is a tree, rooted by the user)
+ *
  */
 const followerTreePullQuery = withDatascriptQuery({
   pull: '["name", {"_follows" ...}]'
 });
 
-export const QueryOutput = enhanceDSRulesQuery(({ result, transact, setParams }) =>
+
+export const AllUsers = allUserQuery(({ result, transact, setParams }) =>
+  <div>
+    <h3> All users (every node in the graph)</h3>
+    <ul>
+      {result.map(([user]) => (
+        <li>{`${user}`}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+export const AllUserEdges = allUserEdgesQuery(({ result, transact, setParams }) =>
   <div>
     <h3> All follower pairs (every edge in the graph)</h3>
     <ul>
@@ -47,9 +72,9 @@ export const QueryOutput = enhanceDSRulesQuery(({ result, transact, setParams })
   </div>
 );
 
-export const PullQueryOutput = followerTreePullQuery(({ result }) =>
+export const FollowerTree = followerTreePullQuery(({ result }) =>
   <div>
-    <h3>Recursive pull query of all followers of Jane (along with all transitive followers) </h3>
+    <h3>A tree of all followers under Jane </h3>
     <code>
       <pre>{JSON.stringify(result, null, 2)}</pre>
     </code>
