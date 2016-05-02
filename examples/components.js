@@ -8,9 +8,9 @@ import { withDatascriptQuery } from '../index.js';
  */
 const allUserQuery = withDatascriptQuery({
   query: `
-    [:find ?uname
+    [:find ?user
      :where [?u "name"]
-            [?u "name" ?uname]]`
+            [?u "name" ?user]]`
 });
 
 /**
@@ -19,11 +19,11 @@ const allUserQuery = withDatascriptQuery({
  */
 const allUserEdgesQuery = withDatascriptQuery({
   query: `
-    [:find ?u1name ?u2name
+    [:find ?user1 ?user2
      :in $ %
      :where (follows ?u1 ?u2)
-             [?u1 "name" ?u1name]
-             [?u2 "name" ?u2name]]`,
+             [?u1 "name" ?user1]
+             [?u2 "name" ?user2]]`,
   rules: `
     [[(follows ?e1 ?e2)
        [?e1 "follows" ?e2]]
@@ -47,7 +47,7 @@ export const AllUsers = allUserQuery(({ result, transact, setParams }) =>
     <h3> All users (every node in the graph)</h3>
     <ul>
       {result.map(([user]) => (
-        <li>{`${user}`}</li>
+        <li key={user}>{`${user}`}</li>
       ))}
     </ul>
   </div>
@@ -57,8 +57,8 @@ export const AllUserEdges = allUserEdgesQuery(({ result, transact, setParams }) 
   <div>
     <h3> All follower pairs (every edge in the graph)</h3>
     <ul>
-      {result.map(([u1name, u2name]) => (
-        <li>{`${u1name} follows ${u2name}`}</li>
+      {result.map(([user1, user2]) => (
+        <li key={user1 + user2}>{`${user1} follows ${user2}`}</li>
       ))}
     </ul>
     <button onClick={() => (

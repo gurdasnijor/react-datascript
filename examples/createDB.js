@@ -1,5 +1,5 @@
 import datascript from 'datascript'
-
+window.d = datascript;
 export default function() {
 
 /**
