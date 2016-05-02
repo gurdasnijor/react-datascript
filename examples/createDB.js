@@ -4,7 +4,7 @@ window.d = d;
 
 
 export default function() {
-  const socialNetworkSchema = {
+  const twitterUserSchema = {
     "name": {
       ":db/cardinality": ":db.cardinality/one",
       ":db/unique": ":db.unique/identity"
@@ -15,7 +15,7 @@ export default function() {
     }
   };
 
-  const conn = d.create_conn(socialNetworkSchema);
+  const conn = d.create_conn(twitterUserSchema);
   window.conn = conn;
   const datoms = [{
         ":db/id": -1,
