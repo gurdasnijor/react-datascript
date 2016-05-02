@@ -1,7 +1,8 @@
 import React from 'react';
 import createHelper from 'recompose/createHelper';
 import shallowEqual from 'recompose/shallowEqual';
-import datascript from 'datascript'
+import datascript from 'datascript';
+const d = datascript;
 
 
 export class DBProvider extends React.Component {

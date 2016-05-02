@@ -4,7 +4,7 @@ import { DBProvider } from '../index.js';
 import createDB from './createDB';
 import { AllUserEdges, AllUsers, FollowerTree } from './components';
 
-const conn = createDB();
+const conn = window.conn = createDB();
 
 class RootComponent extends React.Component {
   render() {

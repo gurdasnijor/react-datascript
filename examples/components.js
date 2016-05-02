@@ -64,7 +64,7 @@ export const AllUserEdges = allUserEdgesQuery(({ result, transact, setParams }) 
     <button onClick={() => (
       transact([{
         ":db/id": -1,
-        "name": `New user + ${result.length}`,
+        "name": `New user ${result.length}`,
         "follows": ["name", "Jane"]
       }]))}>
       Add friend
