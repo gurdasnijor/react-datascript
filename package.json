@@ -1,5 +1,5 @@
 {
-  "name": "recompose-datascript",
+  "name": "react-datascript",
   "version": "1.0.0",
   "description": "Recompose helpers for datascript",
   "main": "index.js",
@@ -22,10 +22,6 @@
     "url": "https://github.com/gurdasnijor/recompose-datascript/issues"
   },
   "homepage": "https://github.com/gurdasnijor/recompose-datascript#readme",
-  "dependencies": {
-    "datascript": "^0.15.0",
-    "recompose": "^0.17.0"
-  },
   "devDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.1",
@@ -49,5 +45,9 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1"
+  },
+  "peerDependencies": {
+    "recompose": "^0.17.0",
+    "datascript": "^0.15.0"
   }
 }

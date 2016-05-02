@@ -12,7 +12,7 @@ var config = {
   devtool: 'eval',
 
   entry: [
-    path.resolve(__dirname, 'examples/main.js')
+    path.resolve(__dirname, 'examples/index.js')
   ],
 
   output: {
