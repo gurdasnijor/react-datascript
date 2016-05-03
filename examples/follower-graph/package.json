@@ -33,6 +33,8 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "react": "^15.0.0",
+    "react-dom": "^15.0.1",
     "react-datascript": "^0.1.0"
   }
 }
