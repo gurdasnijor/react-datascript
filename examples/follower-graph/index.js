@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DBProvider } from '../index.js';
+import { DBProvider } from 'react-datascript';
 import createDB from './createDB';
 import { AllUserEdges, AllUsers, FollowerTree } from './components';
 

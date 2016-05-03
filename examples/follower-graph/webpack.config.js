@@ -3,27 +3,21 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: __dirname + '/examples/index.html',
+  template: __dirname + '/index.html',
   filename: 'index.html',
   inject: 'body'
 });
 
 var config = {
   devtool: 'eval',
-
-  entry: [
-    path.resolve(__dirname, 'examples/index.js')
-  ],
-
+  entry:'./index',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-
   devServer: {
     outputPath: path.join(__dirname, 'dist')
   },
-
   module: {
     loaders: [
       {
@@ -41,7 +35,6 @@ var config = {
       }
     ]
   },
-
   plugins: [
     HtmlWebpackPluginConfig,
     new ExtractTextPlugin('styles/style.css')

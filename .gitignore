@@ -1,13 +1,6 @@
-# Logs
-logs
+.DS_Store
 *.log
-npm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-
 node_modules
-.npm
+dist
+lib
 coverage
