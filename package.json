@@ -1,53 +1,52 @@
 {
   "name": "react-datascript",
-  "version": "1.0.0",
-  "description": "Recompose helpers for datascript",
-  "main": "index.js",
+  "version": "0.3.8",
+  "description": "React bindings for datascript",
+  "main": "lib/index.js",
   "scripts": {
-    "start": "webpack-dev-server --port 9999 --devtool source-map --hot --inline --content-base public --history-api-fallback",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "prepublish": "npm run build",
+    "test": "BABEL_ENV=commonjs mocha --compilers js:babel-register --recursive --require ./test/setup.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gurdasnijor/recompose-datascript.git"
+    "url": "git+https://github.com/gurdasnijor/react-datascript.git"
   },
   "keywords": [
-    "recompose",
     "datascript",
     "react"
   ],
   "author": "Gurdas Nijor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gurdasnijor/recompose-datascript/issues"
+    "url": "https://github.com/gurdasnijor/react-datascript/issues"
   },
-  "homepage": "https://github.com/gurdasnijor/recompose-datascript#readme",
+  "homepage": "https://github.com/gurdasnijor/react-datascript#readme",
   "devDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.1",
+    "babel-cli": "^6.8.0",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-boilerplate": "^1.1.1",
-    "copy-webpack-plugin": "^2.0.1",
-    "css-loader": "^0.23.1",
+    "datascript": "^0.15.0",
+    "enzyme": "^2.2.0",
     "eslint": "^2.7.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.3.0",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.15.0",
-    "open-browser-webpack-plugin": "0.0.2",
-    "react-hot-loader": "^1.3.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.12.15",
-    "webpack-dev-server": "^1.14.1"
+    "expect": "^1.19.0",
+    "jsdom": "^8.5.0",
+    "mocha": "^2.4.5",
+    "react": "^15.0.0",
+    "react-addons-test-utils": "^15.0.2",
+    "react-dom": "^15.0.1"
   },
   "peerDependencies": {
-    "recompose": "^0.17.0",
-    "datascript": "^0.15.0"
+    "datascript": "^0.15.0",
+    "react": "^15.0.0"
+  },
+  "dependencies": {
+    "edn-js": "0.0.3"
   }
 }
