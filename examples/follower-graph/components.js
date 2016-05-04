@@ -2,6 +2,7 @@ import React from 'react';
 import { withDatascriptQuery } from 'react-datascript';
 import datascript from 'datascript';
 
+
 /**
  * A higher order component that declares a query for returning names
  * of all users in the graph
@@ -12,6 +13,7 @@ const allUserQuery = withDatascriptQuery({
      :where [?u "name"]
             [?u "name" ?user]]`
 });
+
 
 /**
  * A higher order component that declares a query using a recursive rule
@@ -92,19 +94,21 @@ const AllUserEdgesComponent = ({ result }) => (
   </div>
 );
 
-const followerTreeComponent = ({ result, transact }) => (
+const FollowerTreeComponent = ({ result, transact }) => (
   <div>
     <h3>A tree of all followers under Jane </h3>
       <button onClick={() => (
         transact([{
           ':db/id': -1,
-          'name': `Follower of Jane ${new Date().getTime()}`,
-          'follows': ['name', 'Jane']
+          name: `Follower of Jane ${new Date().getTime()}`,
+          follows: ['name', 'Jane']
         }]))}>
         Add follower
       </button>
     <code>
-      <pre>{JSON.stringify(result, null, 2)}</pre>
+      <pre>
+        {JSON.stringify(result, null, 2)}
+      </pre>
     </code>
   </div>
 );
@@ -113,4 +117,4 @@ const followerTreeComponent = ({ result, transact }) => (
 export const AllUsers = allUserQuery(AllUsersComponent);
 export const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent);
 export const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent);
-export const FollowerTree = followerTreePullQuery(followerTreeComponent);
+export const FollowerTree = followerTreePullQuery(FollowerTreeComponent);

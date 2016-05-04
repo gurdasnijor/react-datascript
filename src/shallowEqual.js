@@ -1,3 +1,4 @@
+/*Source: https://github.com/gaearon/react-pure-render/blob/master/src/shallowEqual.js*/
 export default function shallowEqual(objA, objB) {
   if (objA === objB) {
     return true;
