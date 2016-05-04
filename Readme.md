@@ -37,8 +37,10 @@ The best solution to make maximal benefit of datascript would be to use it in na
 Instantiate a datascript db, and pass the connection to the provider as a `conn` prop
 
 ```javascript
-
-/*Define a datascript attribute schema*/
+/**
+* Define a datascript attribute schema
+* (See https://github.com/kristianmandrup/datascript-tutorial/blob/master/Create%20Schema.md)
+*/
 const twitterUserSchema = {
   "name": {
     ":db/cardinality": ":db.cardinality/one",
@@ -55,7 +57,7 @@ const conn = datascript.create_conn(twitterUserSchema);
 
 /*Transact some data into the db...*/
 
-/*...Provide the db to all descendant components: */
+/*...Provide the db to all descendant components to query/transact against: */
 <DBConnProvider conn={conn}>
   <Component />
 </DBConnProvider>
@@ -79,8 +81,8 @@ const allUserQuery = withDatascriptQuery({
 
 
 /**
- * Create a component that will always have its query results up
- * to date,
+ * Create a component using `allUserQuery` that will always have its results in
+ * sync with the output of the query across db updates
  */
 const AllUsers = allUserQuery(({ result }) =>
    <div>
@@ -96,6 +98,14 @@ const AllUsers = allUserQuery(({ result }) =>
 
 See the [components within the included example](https://github.com/gurdasnijor/react-datascript/blob/master/examples/follower-graph/components.js) to get a sense of some of the different queries that are possible.
 
+
+## Run the example
+```
+cd examples/follower-graph
+npm install
+npm start
+```
+The example will be running at http://localhost:9999
 
 
 ## TODO
