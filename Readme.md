@@ -105,20 +105,34 @@ cd examples/follower-graph
 npm install
 npm start
 ```
-The example will be running at http://localhost:9999
+Navigate to http://localhost:9999
 
 
-## TODO
+## Roadmap
+
+*Performance*
 
 1.  Improve render performance by expanding query parsing logic to incorporate broader range of query structures (including pull syntax, and rules) so that a determination can be made whether to re-render or not based on the attributes of newly transacted data being present in the parsed attribute set.  Only basic query support exists right now
 
-2.  Query composition
+2.  Solution for over-querying (components with identical queries redundantly running those queries on db update)
 
-3.  Better `transact` api
+3.  Optimize results of a `dbConn()` result by avoiding unnecessary renders (difficult to do since we can't make as assumptions with query structure as we could with a regular static `query`)
 
-4.  More complex examples (undo/redo, db replication over the wire, etc...)
 
-5.  Optimize results of a `dbConn()` result by avoiding unnecessary renders (difficult to do since we can't make as assumptions with query structure as we could with a regular static `query`)
+*API*
+
+1.  Query composition
+
+2.  Better `transact` api
+
+3.  Integration with Redux
+
+4.  Investigate [build-time compilation of datascript query](https://github.com/typeetfunc/babel-plugin-datascript)
+
+*Learning resources*
+
+1.  More complex examples (undo/redo, db replication over the wire, etc...)
+
 
 ## Resources
 
