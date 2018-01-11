@@ -35,5 +35,8 @@
     "react": "^15.0.0",
     "react-datascript": "^0.3.0",
     "react-dom": "^15.0.1"
-  }
+  },
+ "babel": {
+   "presets": [ "es2015", "react" ] 
+ }
 }
