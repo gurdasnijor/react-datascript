@@ -140,3 +140,4 @@ Navigate to http://localhost:9999
 - [How immutability, functional programming, databases and reactivity change front-end](https://www.youtube.com/watch?v=5DyQwMQbWvs) ([slides](https://dl.dropboxusercontent.com/u/561580/conferences/2015.11%20reactive.pdf))
 
 This line was added by the Smithery factory.
+This line was added by the Smithery factory for SMOKE-14.
