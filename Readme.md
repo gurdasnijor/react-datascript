@@ -138,3 +138,4 @@ Navigate to http://localhost:9999
 
 - [Learning Datalog](http://www.learndatalogtoday.org/)
 - [How immutability, functional programming, databases and reactivity change front-end](https://www.youtube.com/watch?v=5DyQwMQbWvs) ([slides](https://dl.dropboxusercontent.com/u/561580/conferences/2015.11%20reactive.pdf))
+- Smithery factory implementation for SMOKE-12
